@@ -29,6 +29,7 @@ import /init.recovery.qcom_decrypt.rc
 import /init.recovery.display.rc
 
 on early-init
+    start set_permissive
     start linkblobs
 
 on init
@@ -56,12 +57,6 @@ on fs
 on boot
     start health-hal-2-1
 
-on property:crypto.ready=1
-    start keymaster-sb-4-0
-
-on property:crypto.ready=0
-    stop keymaster-sb-4-0
-
 service linkblobs /system/bin/linkblobs.sh
     user root
     group root
@@ -69,11 +64,8 @@ service linkblobs /system/bin/linkblobs.sh
     oneshot
     seclabel u:r:recovery:s0
 
-
-service keymaster-sb-4-0 /system/bin/hw/android.hardware.keymaster@4.0-strongbox-service-qti
-    user root
+service set_permissive /system/bin/set_permissive.sh
     group root
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
     disabled
     oneshot
     seclabel u:r:recovery:s0
