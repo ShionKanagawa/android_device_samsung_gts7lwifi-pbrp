@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+# Apex
+TW_EXCLUDE_APEX := true
+
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
