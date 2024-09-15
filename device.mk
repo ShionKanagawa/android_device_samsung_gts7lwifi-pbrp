@@ -15,7 +15,7 @@
 #
 
 # Enable project quotas and casefolding for emulated storage without sdcardfs
-#$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
@@ -105,7 +105,6 @@ TARGET_USES_MKE2FS := true
 #TW_NO_SCREEN_BLANK := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_EXCLUDE_APEX := true
-TW_FRAMERATE := 60
 TW_INCLUDE_FASTBOOTD := true
 #TW_PREPARE_DATA_MEDIA_EARLY := true
 TW_NO_EXFAT_FUSE := true
