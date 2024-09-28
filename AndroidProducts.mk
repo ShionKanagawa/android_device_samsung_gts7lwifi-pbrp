@@ -15,9 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_nabu.mk
+    $(LOCAL_DIR)/pb_gts7lwifi.mk
 
 COMMON_LUNCH_CHOICES := \
-    twrp_nabu-user \
-    twrp_nabu-userdebug \
-    twrp_nabu-eng
+    pb_gts7lwifi-user \
+    pb_gts7lwifi-userdebug \
+    pb_gts7lwifi-eng

@@ -20,15 +20,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
-# Enable virtual A/B OTA
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
-
 # Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
-LOCAL_PATH := device/xiaomi/nabu
+LOCAL_PATH := device/samsung/gts7lwifi
 
-#include kernel/xiaomi/nabu/Android.mk
 
 # API
 PRODUCT_SHIPPING_API_LEVEL := 30
@@ -38,8 +34,8 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-impl-qti \
     android.hardware.boot@1.1-impl-qti.recovery \
     android.hardware.boot@1.1-service \
-    bootctrl.msmnile \
-    bootctrl.msmnile.recovery
+    bootctrl.kona \
+    bootctrl.kona.recovery
 
 PRODUCT_PACKAGES_DEBUG += \
     bootctl

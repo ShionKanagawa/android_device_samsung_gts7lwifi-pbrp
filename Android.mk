@@ -15,9 +15,6 @@
 #
 
 LOCAL_PATH := $(call my-dir)
-
-ifeq ($(TARGET_DEVICE), nabu)
-subdir_makefiles=$(call first-makefiles-under,$(LOCAL_PATH))
-$(foreach mk,$(subdir_makefiles),$(info including $(mk) ...)$(eval include $(mk)))
-
+ifeq ($(TARGET_DEVICE),gts7lwifi)
+include $(call all-subdir-makefiles,$(LOCAL_PATH))
 endif

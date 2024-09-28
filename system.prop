@@ -1,6 +1,6 @@
-ro.product.vendor.marketname=Mi Pad 5
-ro.product.board=nabu
-ro.board.platform=msmnile
+ro.product.vendor.marketname==Samsung Galaxy Tab S7
+ro.product.board=gts7lwifi
+ro.board.platform=kona
 sys.usb.controller=a600000.dwc3
 sys.usb.rndis.func.name=rndis_bam
 sys.usb.rmnet.func.name=rmnet_bam
