@@ -1,26 +1,40 @@
-Device configuration for Xiaomi Mi Pad 5 (nabu)
+Device configuration for Samsung Galaxy Tab S7 T870 (gts7lwifi)
 =========================================
 
-The Xiaomi Mi Pad 5 (codenamed _"nabu"_) is a tablet from Xiaomi.
+The Samsung Galaxy Tab S7 T870 (codenamed _"gts7lwifi"_) is a tablet from Samsung.
 
-It was released in August 2021.
+It was released in August 2020.
 
 ## Device specifications
 
 Basic   | Spec Sheet
 -------:|:-------------------------
-SoC     | Qualcomm Snapdragon 860 (7 nm)
-CPU     | Octa-core (1x2.96 GHz Kryo 485 Gold & 3x2.42 GHz Kryo 485 Gold & 4x1.78 GHz Kryo 485 Silver)
-GPU     | Adreno 640
-Memory  | 128GB 6GB RAM, 256GB 6GB RAM, 256GB 8GB
-Shipped Android Version | Android 11, MIUI 12
-Battery | Li-Po 8720 mAh, non-removable
-Display | IPS LCD, 1B colors, 120Hz, HDR10, Dolby Vision
+SoC     | Qualcomm Snapdragon 865+ (7 nm)
+CPU     | Octa-core (1x3.10 GHz Kryo 585 Prime & 3x2.42 GHz Kryo 585 Gold & 4x1.80 GHz Kryo 585 Silver)
+GPU     | Adreno 650
+Memory  | 128GB 6GB RAM, 256GB 8GB
+Shipped Android Version | Android 10, One UI 2
+Battery | Li-Po 8000 mAh, non-removable
+Display | IPS LCD, 120Hz, HDR10, Dolby Vision
 
 ## Device picture
 
-![Xiaomi Mi Pad 5](https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1628600350.1553788.png "Xiaomi Mi Pad 5")
+![Samsung Galaxy Tab S7](https://images.samsung.com/common/galaxy-note20/feature/galaxy-tab-s7/images/galaxy-tab-s7-black-diplay-front-pc.jpg "Galaxy Tab S7")
 
-**Kernel Source** https://github.com/Kfkcome/android_kernel_xiaomi_nabu
+**Kernel Source** https://github.com/ShionKanagawa/android_kernel_samsung_gts7lwifi
 
-Special Thanks to @map220v
+Works:
+
+- [X] ADB
+- [X] Display
+- [X] Flashing
+- [X] MTP
+- [X] Sideload
+- [X] Vibrator
+
+Not Works:
+- [X] Decryption
+
+Untested:
+- [X] Fasbootd
+- [X] USB OTG
