@@ -41,56 +41,78 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := $(TARGET_CPU_VARIANT_RUNTIME)
 TARGET_USES_64_BIT_BINDER := true
 TARGET_SUPPORTS_64_BIT_APPS := true
 
-TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_CONFIG := vendor/gts7lwifi_eur_open_defconfig
-TARGET_KERNEL_SOURCE := kernel/samsung/gts7lwifi
-# Assert
-TARGET_OTA_ASSERT_DEVICE := gts7lwifi
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := $(PRODUCT_PLATFORM)
+TARGET_NO_BOOTLOADER := true
 
-# A/B support
-AB_OTA_UPDATER := true
-
-AB_OTA_PARTITIONS += \
-    boot \
-    dtbo \
-    odm \
-    product \
-    system \
-    vbmeta \
-    vendor
+# Platform
+TARGET_BOARD_PLATFORM := $(TARGET_BOOTLOADER_BOARD_NAME)
+QCOM_BOARD_PLATFORMS += $(TARGET_BOARD_PLATFORM)
 
 # Kernel
-TARGET_FORCE_PREBUILT_KERNEL := true
-BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 loop.max_part=7 cgroup.memory=nokmem,nosocket reboot=panic_warm androidboot.usbconfigfs=true androidboot.selinux=permissive buildvariant=eng
-BOARD_KERNEL_HEADER_VERSION := 2
-BOARD_KERNEL_IMAGE_NAME := Image
-BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_BASE          := 0x00000000
-BOARD_KERNEL_TAGS_OFFSET   := 0x01e00000
-BOARD_KERNEL_OFFSET        := 0x00008000
-BOARD_KERNEL_SECOND_OFFSET := 0x00f00000
-BOARD_RAMDISK_OFFSET       := 0x02000000
-TARGET_KERNEL_ARCH := arm64
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
-
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_KERNEL_HEADER_VERSION)
-BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --second_offset $(BOARD_KERNEL_SECOND_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-
-# Kenel dtb
-# BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
+TARGET_KERNEL_CLANG_COMPILE := true
+# Kernel
+BOARD_KERNEL_IMAGE_NAME        := Image.gz
+BOARD_BOOT_HEADER_VERSION      := 2
+BOARD_KERNEL_SEPARATED_DTBO    := true
+BOARD_INCLUDE_DTB_IN_BOOTIMG   := true
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/$(BOARD_KERNEL_IMAGE_NAME)
+BOARD_INCLUDE_RECOVERY_DTBO := true
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+BOARD_KERNEL_CMDLINE := \
+    androidboot.hardware=qcom \
+    androidboot.memcg=1 \
+    androidboot.usbcontroller=a600000.dwc3 \
+    console=null \
+    firmware_class.path=/vendor/firmware_mnt/image \
+    loop.max_part=7 \
+    lpm_levels.sleep_disabled=1 \
+    msm_rtb.filter=0x237 \
+    printk.devkmsg=on \
+    service_locator.enable=1 \
+    swiotlb=2048\
+    androidboot.selinux=permissive
+
+BOARD_KERNEL_BASE          := 0x00000000
+BOARD_KERNEL_PAGESIZE      := 4096
+BOARD_MKBOOTIMG_ARGS := \
+    --dtb $(DEVICE_PATH)/prebuilt/dtb.img \
+    --board SRPUF17A008 \
+    --kernel_offset 0x00008000 \
+    --ramdisk_offset 0x02000000 \
+    --tags_offset 0x01e00000 \
+    --dtb_offset 0x01f00000 \
+    --header_version 2
+
+
+# TARGET_KERNEL_SOURCE := kernel/samsung/sm8250
+# TARGET_KERNEL_CONFIG := vendor/kona-sec-perf_defconfig
+
+BOARD_ROOT_EXTRA_FOLDERS := \
+    carrier \
+    efs \
+    omr \
+    optics \
+    prism \
+    spu
+
+# Android Verified Boot
+BOARD_AVB_ENABLE := true
+BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
+BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
+
+# Assert
+TARGET_OTA_ASSERT_DEVICE := gts7lwifi gts7l
 
 # Kenel recovery dtbo
 BOARD_INCLUDE_RECOVERY_DTBO := true
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/recovery_dtbo
 
-# Metadata
-BOARD_USES_METADATA_PARTITION := true
-BOARD_USES_QCOM_FBE_DECRYPTION := true
+# Properties
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 262144
@@ -105,6 +127,10 @@ BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 10166992896 # (BOARD_SUPER_PARTITION_SIZE -
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 
+# Encryption
+# BOARD_USES_QCOM_FBE_DECRYPTION := true
+# BOARD_USES_METADATA_PARTITION := true
+
 # Platform
 BOARD_USES_QCOM_HARDWARE := true
 TARGET_BOARD_PLATFORM := kona
@@ -112,19 +138,39 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno650
 QCOM_BOARD_PLATFORMS += kona
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_USERIMAGES_USE_F2FS := true
-BOARD_SUPPRESS_SECURE_ERASE := true
-BOARD_HAS_LARGE_FILESYSTEM := true
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
+RECOVERY_SDCARD_ON_DATA := true
+# Use mke2fs to create ext4 images
+TARGET_USES_MKE2FS := true
 
-# Avb
-BOARD_AVB_ENABLE := true
-BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
-BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
-BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
+# TWRP specific build flags
+TW_THEME := portrait_hdpi
+TW_DEVICE_VERSION := 1
+TW_SCREEN_BLANK_ON_BOOT := true
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+TW_MAX_BRIGHTNESS := 255
+TW_DEFAULT_BRIGHTNESS := 128
+TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone50/temp"
+TW_NO_REBOOT_BOOTLOADER := true
+TW_HAS_DOWNLOAD_MODE := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TW_BACKUP_EXCLUSIONS := /data/fonts
+TW_EXTRA_LANGUAGES := true
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_INCLUDE_CRYPTO := false
+TW_NO_EXFAT_FUSE := true
+TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_LPDUMP := true
+TW_INCLUDE_LPTOOLS := true
+TW_FRAMERATE := 60
+
+# TWRP Configuration: Logd
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+TW_INCLUDE_LIBRESETPROP := true
+TW_INCLUDE_RESETPROP := true
+
 
 # Partitions
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 86888448

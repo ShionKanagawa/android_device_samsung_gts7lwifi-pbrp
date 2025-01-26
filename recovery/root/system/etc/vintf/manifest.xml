@@ -2,8 +2,9 @@
     Input:
         manifest.xml
         framework_manifest.xml
+        manifest.xml
 -->
-<manifest version="2.0" type="framework">
+<manifest version="4.0" type="framework">
     <hal format="hidl">
         <name>android.frameworks.displayservice</name>
         <transport>hwbinder</transport>
@@ -14,7 +15,7 @@
         </interface>
         <fqname>@1.0::IDisplayService/default</fqname>
     </hal>
-    <hal format="hidl">
+    <hal format="hidl" max-level="5">
         <name>android.frameworks.schedulerservice</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -89,16 +90,6 @@
         <version>1.0</version>
     </hal>
     <hal format="hidl">
-        <name>vendor.qti.hardware.qccsyshal</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IQccsyshal</name>
-            <instance>qccsyshal</instance>
-        </interface>
-        <fqname>@1.0::IQccsyshal/qccsyshal</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.qti.hardware.radio.atcmdfwd</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -115,8 +106,10 @@
         <interface>
             <name>Isigma_miracast</name>
             <instance>sigmahal</instance>
+            <instance>sigmahal64</instance>
         </interface>
         <fqname>@1.0::Isigma_miracast/sigmahal</fqname>
+        <fqname>@1.0::Isigma_miracast/sigmahal64</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.systemhelper</name>
@@ -134,18 +127,19 @@
         <fqname>@1.0::ISystemResource/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.qti.hardware.wifi.keystore</name>
+        <name>vendor.samsung.frameworks.security.ucm.crypto</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
-            <name>IKeystoreExt</name>
+            <name>ISehUcmKeystore</name>
             <instance>default</instance>
         </interface>
-        <fqname>@1.0::IKeystoreExt/default</fqname>
+        <fqname>@1.0::ISehUcmKeystore/default</fqname>
     </hal>
     <system-sdk>
         <version>28</version>
         <version>29</version>
         <version>30</version>
+        <version>31</version>
     </system-sdk>
 </manifest>

@@ -17,19 +17,17 @@
 # Enable project quotas and casefolding for emulated storage without sdcardfs
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
-# Enable updating of APEXes
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-
-# Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 LOCAL_PATH := device/samsung/gts7lwifi
 
+# VNDK
+PRODUCT_TARGET_VNDK_VERSION := 30
 
 # API
 PRODUCT_SHIPPING_API_LEVEL := 30
 
-# A/B
+AB_OTA_UPDATER := false
+
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-impl-qti \
     android.hardware.boot@1.1-impl-qti.recovery \
@@ -73,55 +71,32 @@ PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
     fastbootd
 
-# Screen
-TARGET_SCREEN_HEIGHT := 2560
-TARGET_SCREEN_WIDTH := 1600
+# Additional Libraries
+# TARGET_RECOVERY_DEVICE_MODULES += \
+#     libkeymaster4 \
+#     libkeymaster41
+
+# RECOVERY_LIBRARY_SOURCE_FILES += \
+#     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
+#     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster41.so
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/qcom-caf/bootctrl
 
-# TWRP Configuration
-TW_THEME := portrait_hdpi
-TW_DEVICE_VERSION :=4 BY SIDDK
-RECOVERY_SDCARD_ON_DATA := true
-TARGET_RECOVERY_QCOM_RTC_FIX := true
-TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_EXTRA_LANGUAGES := true
-TW_INCLUDE_NTFS_3G := true
-TW_USE_TOOLBOX := true
-TW_INCLUDE_RESETPROP := true
-TW_INCLUDE_REPACKTOOLS := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
-TWRP_INCLUDE_LOGCAT := true
-TARGET_USES_LOGD := true
-TARGET_USES_MKE2FS := true
-#TW_NO_SCREEN_BLANK := true
-TW_SCREEN_BLANK_ON_BOOT := true
-TW_EXCLUDE_APEX := true
-TW_INCLUDE_FASTBOOTD := true
-#TW_PREPARE_DATA_MEDIA_EARLY := true
-TW_NO_EXFAT_FUSE := true
+# qcom decryption
+# PRODUCT_PACKAGES += \
+#     qcom_decrypt \
+#     qcom_decrypt_fbe
 
-# Crypto
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
-PLATFORM_SECURITY_PATCH := 2099-12-31
-VENDOR_SECURITY_PATCH := 2099-12-31
-PLATFORM_VERSION := 16.1.0
-PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
-BOARD_USES_QCOM_FBE_DECRYPTION := true
-
+# Dependencies
 TARGET_RECOVERY_DEVICE_MODULES += \
-    libandroidicu \
     libion
 
 RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so
 
-PRODUCT_PACKAGES += \
-    qcom_decrypt \
-    qcom_decrypt_fbe
+# Screen
+TARGET_SCREEN_WIDTH := 2560
+TARGET_SCREEN_HEIGHT := 1600

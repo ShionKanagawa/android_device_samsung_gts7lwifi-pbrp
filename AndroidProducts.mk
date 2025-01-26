@@ -15,9 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/pb_gts7lwifi.mk
+    $(LOCAL_DIR)/twrp_gts7lwifi.mk
 
 COMMON_LUNCH_CHOICES := \
-    pb_gts7lwifi-user \
-    pb_gts7lwifi-userdebug \
-    pb_gts7lwifi-eng
+    twrp_gts7lwifi-user \
+    twrp_gts7lwifi-userdebug \
+    twrp_gts7lwifi-eng
