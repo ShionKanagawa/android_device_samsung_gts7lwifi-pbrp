@@ -21,7 +21,8 @@ Display | IPS LCD, 120Hz, HDR10, Dolby Vision
 
 ![Samsung Galaxy Tab S7](https://images.samsung.com/common/galaxy-note20/feature/galaxy-tab-s7/images/galaxy-tab-s7-black-diplay-front-pc.jpg "Galaxy Tab S7")
 
-**Kernel Source** https://github.com/ShionKanagawa/android_kernel_samsung_gts7lwifi
+**Kernel Source** 
+https://github.com/smsn-queen-project/android_kernel_samsung_sm8250
 
 Works:
 
@@ -31,10 +32,9 @@ Works:
 - [X] MTP
 - [X] Sideload
 - [X] Vibrator
+- [X] USB OTG
+- [X] Micro SD Card
 
 Not Works:
 - [X] Decryption
-
-Untested:
 - [X] Fasbootd
-- [X] USB OTG
