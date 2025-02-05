@@ -18,7 +18,7 @@ Display  | LCD, 120Hz, 525 nits, 6.6 inch, 1080 x 2408 pixels, 20:9 ratio
 ## Kernel Source
 From Stock ROM
 ```
-m23xqxx-user 14 UP1A.231005.007 M236BXXU5DWL1 release-keys
+m23xqxx-user 14 UP1A.231005.007 M236BXXS9EXK5 release-keys
 ```
 ## How to compile locally:
 First repo init the twrp-12.1 tree:
@@ -49,5 +49,5 @@ Finally execute these:
 . build/envsetup.sh
 export ALLOW_MISSING_DEPENDENCIES=true
 lunch twrp_m23xq-eng
-mka bootimage
+mka recoveryimage
 ```
