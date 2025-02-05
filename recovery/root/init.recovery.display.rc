@@ -10,9 +10,3 @@ on init
     chmod 0660 /sys/class/sec/tsp/input/enabled
     chown system system /sys/class/sec/tsp/enabled
     chmod 0660 /sys/class/sec/tsp/enabled
-
-    # Send Touchscreen fix commands
-    write /sys/class/sec/tsp/cmd aot_enable,1
-    write /sys/class/sec/tsp/cmd check_connection
-    write /sys/class/sec/tsp/enabled 1,0
-    write /sys/class/sec/tsp/enabled 2,1
