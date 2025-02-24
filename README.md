@@ -1,53 +1,76 @@
-# TWRP Device configuration for Samsung Galaxy M23/F23 SM-M236B/SM-E236B (codename m23xq)
+# TWRP Device Tree for Samsung Galaxy Tab S7 FE 5G
+
+> ⚠️ **Attention:** Make sure to check your Model! Do **NOT** use on T733! This is **ONLY** for Devices with a Snapdragon 750G Chipset such as T730, T736B, T738U, ...
+
+The Galaxy Tab S7 FE 5G (codenamed _"gts7xllite"_) is an upper-mid-range tablet from Samsung.
+
+It was announced in May 2021 and released in June 2021.
 
 ## Device specifications
-Basic    | Spec Sheet
---------:|:----------------------
-Chipset  | Qualcomm Snapdragon 750G
-CPU      | Octa-core (6x1.8ghz Kryo 570 & 2x2.2ghz Cortex A77)
-GPU      | Adreno 619
-Memory   | 6GB RAM (LPDDR4X)
-Storage  | 128GB
-Shipped Android version | Android 12, OneUI 4.1
-Battery  | Li-ion 5000mAh, non-removable
-Display  | LCD, 120Hz, 525 nits, 6.6 inch, 1080 x 2408 pixels, 20:9 ratio
+
+| Feature                | Specification                                                            |
+| -----------------------| :----------------------------------------------------------------------- |
+| Chipset                | Qualcomm SM7225 Snapdragon 750G 5G                                       |
+| CPU                    | Octa-core (2x2.2 GHz Kryo 570 & 6x1.8 GHz Kryo 570)                      |
+| GPU                    | Qualcomm Adreno 619                                                      |
+| Memory                 | 4GB / 6GB / 8GB RAM (LPDDR4X)                                            |
+| Shipped OS             | Android 11 (One UI 3.1) - Android 14 (One UI 6.1)                        |
+| SIM                    | Hybrid Dual SIM (Nano-SIM, dual stand-by)                                |
+| Storage                | 64GB / 128GB / 256GB (UFS 2.2)                                           |
+| MicroSD                | Up to 1TB                                                                |
+| Battery                | 10090mAh Li-Ion (non-removable), 45W fast charge                         |
+| Dimensions             | 284.8 x 185 x 6.3 mm (11.21 x 7.28 x 0.25 in)                            |
+| Display                | 12,4", 1600 x 2560 pixels, 16:10 ratio, TFT LCD, 60Hz (~243 ppi density) |
+| Rear Camera 1 (IMX355) | 8 MP, f/1.9, 27.6mm (wide), 1/3.5", 1.12µm                               |
+| Front Camera (GC5035)  | 5 MP, f/2.2, 25.4mm (wide), 1/4.44", 1.12µm                              |
+| Sensors                | Accelerometer, Gyro, Proximity (virtual), Compass, Hall IC, Grip         |
+| Extras                 | Dual speakers, MST                                                       |
 
 ## Device picture
-<img src="https://images.samsung.com/is/image/samsung/p6pim/br/sm-m236bzglzto/gallery/br-galaxy-m23-5g-sm-m236-422397-422397-sm-m236bzglzto-532669053?$1300_1038_PNG$" width="100%"/>
 
-## Kernel Source
-From Stock ROM
-```
-m23xqxx-user 14 UP1A.231005.007 M236BXXS9EXK5 release-keys
-```
-## How to compile locally:
-First repo init the twrp-12.1 tree:
+<img src="https://image-us.samsung.com/SamsungUS/home/mobile/tablets/galaxy-tab-s7-fe/GalaxyTabS7plusLite_Combo_001_MysticBlack_1600x1200.png" width="60%"/>
 
-```
-mkdir ~/android/twrp-12.1
-cd ~/android/twrp-12.1
-repo init -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
-mkdir -p .repo/local_manifests
+## Kernel source
+
+Extracted from Stock Firmware for the moment.
+
+## How to build
+
+This device tree was tested and is fully compatible with [minimal-manifest-twrp](https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp).
+
+1. Set up the build environment following the instructions [here](https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp/blob/twrp-12.1/README.md#getting-started)
+
+2. In the root folder of the fetched repo, clone the device tree:
+
+```bash
+git clone https://github.com/Bush-cat/android_device_samsung_gts7xllite-twrp.git -b android-12.1 device/samsung/gts7xllite
 ```
 
-Then add to a local manifest (if you don't have .repo/local_manifest then make that directory and make a blank file and name it something like twrp.xml):
+3. To build:
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-  <remote name="me" 
-        fetch="https://github.com/ZorEl212" />
-  <project name="android_device_samsung_m23xq" path="device/samsung/m23xq" remote="me" revision="android-12.1"/>
-</manifest>
-```
-Now you can sync your source:
-```
-repo sync
-```
-Finally execute these:
-```
-. build/envsetup.sh
+```bash
 export ALLOW_MISSING_DEPENDENCIES=true
-lunch twrp_m23xq-eng
+. build/envsetup.sh
+lunch twrp_gts7xllite-eng
 mka recoveryimage
+```
+
+## Copyright
+
+```
+#
+# Copyright (C) 2022 The TWRP Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 ```

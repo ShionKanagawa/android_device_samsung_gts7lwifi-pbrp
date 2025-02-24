@@ -6,7 +6,7 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_m23xq.mk
+    $(LOCAL_DIR)/twrp_gts7xllite.mk
 
 COMMON_LUNCH_CHOICES := \
-    twrp_m23xq-eng
+    twrp_gts7xllite-eng
