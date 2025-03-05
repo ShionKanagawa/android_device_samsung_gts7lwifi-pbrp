@@ -29,7 +29,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, vendor/twrp/config/common.mk)
 
 # Inherit device configuration
-#$(call inherit-product, device/samsung/gts7xl/device.mk)
+$(call inherit-product, device/samsung/gts7xl/device.mk)
 
 # Charger
 PRODUCT_PACKAGES += \

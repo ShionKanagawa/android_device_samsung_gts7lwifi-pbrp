@@ -1,5 +1,11 @@
+import /init.recovery.qcom_decrypt.rc
+
 on fs
     export ANDROID_ROOT /system
 
     wait /dev/block/platform/${ro.boot.boot_devices}
     symlink /dev/block/platform/${ro.boot.boot_devices} /dev/block/bootdevice
+
+on init
+    setprop prepdecrypt.setpatch true
+    start health-hal-2-1
