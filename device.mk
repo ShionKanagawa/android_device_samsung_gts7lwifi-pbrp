@@ -24,5 +24,9 @@ PRODUCT_PACKAGES += \
 
 # qcom decryption
 PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper@1.0.recovery \
+    android.hardware.keymaster@4.1.recovery \
+    libion.recovery \
+    libxml2.recovery \
     qcom_decrypt \
     qcom_decrypt_fbe

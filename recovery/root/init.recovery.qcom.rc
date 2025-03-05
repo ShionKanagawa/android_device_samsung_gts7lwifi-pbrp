@@ -1,11 +1,50 @@
 import /init.recovery.qcom_decrypt.rc
 
 on fs
-    export ANDROID_ROOT /system
-
     wait /dev/block/platform/${ro.boot.boot_devices}
     symlink /dev/block/platform/${ro.boot.boot_devices} /dev/block/bootdevice
+
+    mount_all /system/etc/recovery.fstab
+
+on post-fs
+    start vendor.spdaemon
+    start vendor.sec_nvm
 
 on init
     setprop prepdecrypt.setpatch true
     start health-hal-2-1
+
+on property:sys.listeners.registered=true
+    start keymaster-4-0-strongbox
+
+on property:vendor.sys.listeners.registered=true
+    start keymaster-4-0-strongbox
+
+on property:twrp.all.users.decrypted=true
+    stop keymaster-4-0-strongbox
+
+on property:ro.crypto.type=block && property:ro.crypto.fs_crypto_blkdev=*
+    stop keymaster-4-0-strongbox
+
+service keymaster-4-0-strongbox /system/bin/android.hardware.keymaster@4.0-strongbox-service-qti
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+service vendor.spdaemon /system/bin/spdaemon
+    class core
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    shutdown critical
+    seclabel u:r:recovery:s0
+
+service vendor.sec_nvm /system/bin/sec_nvm
+    class core
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    seclabel u:r:recovery:s0
