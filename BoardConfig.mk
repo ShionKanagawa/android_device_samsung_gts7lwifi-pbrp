@@ -15,6 +15,9 @@ PLATFORM_VERSION_LAST_STABLE := 12
 
 DEVICE_PATH := device/samsung/gts7xl
 
+# For building with minimal manifest
+ALLOW_MISSING_DEPENDENCIES := true
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -91,6 +94,7 @@ RECOVERY_TOUCHSCREEN_SWAP_XY := true
 RECOVERY_TOUCHSCREEN_FLIP_Y := true
 
 # TWRP
+TW_DEVICE_VERSION := inkypen
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
