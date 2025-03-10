@@ -19,6 +19,7 @@
 
 # Release name
 PRODUCT_RELEASE_NAME := gts7xl
+PRODUCT_SHIPPING_API_LEVEL := 29
 
 # Inherit from common AOSP config
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
