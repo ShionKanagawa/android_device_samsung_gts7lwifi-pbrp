@@ -1,15 +1,17 @@
 <!--
     Input:
-        manifest_yupik.xml
+        manifest.xml
+        manifest_launched_with_Q.xml
+        manifest.xml
+        manifest.xml
+        manifest_gnss_2_0.xml
         manifest.xml
         manifest.xml
         manifest.xml
-        skeymaster_v4_manifest.xml
-        manifest.xml
-        manifest.xml
-        radio_manifest_ds.xml
-        radio_manifest_ds.xml
+        radio_manifest_wifionly.xml
         manifest_chip.xml
+        strongbox_skeymaster_v4_manifest.xml
+        mdfppgatekeeper_manifest.xml
         manifest.xml
         manifest.xml
         manifest.xml
@@ -18,11 +20,12 @@
         manifest.xml
         manifest.xml
         manifest.xml
+        fkeymaster_manifest.xml
         manifest.xml
         manifest.xml
         manifest.xml
 -->
-<manifest version="2.0" type="device" target-level="5">
+<manifest version="2.0" type="device" target-level="4">
     <hal format="hidl">
         <name>android.hardware.audio</name>
         <transport>hwbinder</transport>
@@ -73,6 +76,11 @@
         </interface>
         <fqname>@1.0::IBluetoothHci/default</fqname>
     </hal>
+    <hal format="hidl" override="true">
+        <name>android.hardware.boot</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+    </hal>
     <hal format="hidl">
         <name>android.hardware.camera.provider</name>
         <transport>hwbinder</transport>
@@ -83,6 +91,21 @@
         </interface>
         <fqname>@2.6::ICameraProvider/legacy/0</fqname>
     </hal>
+    <hal format="hidl">
+        <name>android.hardware.configstore</name>
+        <transport>hwbinder</transport>
+        <version>1.1</version>
+        <interface>
+            <name>ISurfaceFlingerConfigs</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.1::ISurfaceFlingerConfigs/default</fqname>
+    </hal>
+    <hal format="hidl" override="true">
+        <name>android.hardware.contexthub</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+    </hal>
     <hal format="hidl" override="true">
         <name>android.hardware.gatekeeper</name>
         <transport>hwbinder</transport>
@@ -90,8 +113,22 @@
         <interface>
             <name>IGatekeeper</name>
             <instance>default</instance>
+            <instance>mdfpp</instance>
         </interface>
         <fqname>@1.0::IGatekeeper/default</fqname>
+        <fqname>@1.0::IGatekeeper/mdfpp</fqname>
+    </hal>
+    <hal format="hidl" override="true">
+        <name>android.hardware.gnss</name>
+        <transport>hwbinder</transport>
+        <version>2.0</version>
+        <version>1.1</version>
+        <interface>
+            <name>IGnss</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.1::IGnss/default</fqname>
+        <fqname>@2.0::IGnss/default</fqname>
     </hal>
     <hal format="hidl" override="true">
         <name>android.hardware.keymaster</name>
@@ -100,8 +137,10 @@
         <interface>
             <name>IKeymasterDevice</name>
             <instance>default</instance>
+            <instance>strongbox</instance>
         </interface>
         <fqname>@4.0::IKeymasterDevice/default</fqname>
+        <fqname>@4.0::IKeymasterDevice/strongbox</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.media.omx</name>
@@ -133,26 +172,17 @@
         <transport>hwbinder</transport>
     </hal>
     <hal format="hidl" override="true">
-        <name>android.hardware.radio</name>
-        <transport>hwbinder</transport>
-        <fqname>@1.2::ISap/slot1</fqname>
-        <fqname>@1.2::ISap/slot2</fqname>
-        <fqname>@1.5::IRadio/slot1</fqname>
-        <fqname>@1.5::IRadio/slot2</fqname>
-    </hal>
-    <hal format="hidl" override="true">
         <name>android.hardware.radio.config</name>
         <transport>hwbinder</transport>
-        <version>1.1</version>
-        <interface>
-            <name>IRadioConfig</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.1::IRadioConfig/default</fqname>
     </hal>
     <hal format="hidl" override="true">
         <name>android.hardware.radio.deprecated</name>
         <transport>hwbinder</transport>
+    </hal>
+    <hal format="hidl" override="true">
+        <name>android.hardware.secure_element</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
     </hal>
     <hal format="hidl">
         <name>android.hardware.soundtrigger</name>
@@ -164,25 +194,23 @@
         </interface>
         <fqname>@2.3::ISoundTriggerHw/default</fqname>
     </hal>
-    <hal format="hidl">
+    <hal format="hidl" override="true">
         <name>android.hardware.tetheroffload.config</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IOffloadConfig</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IOffloadConfig/default</fqname>
     </hal>
-    <hal format="hidl">
+    <hal format="hidl" override="true">
         <name>android.hardware.tetheroffload.control</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.vibrator</name>
+        <transport>hwbinder</transport>
+        <version>1.3</version>
         <interface>
-            <name>IOffloadControl</name>
+            <name>IVibrator</name>
             <instance>default</instance>
         </interface>
-        <fqname>@1.0::IOffloadControl/default</fqname>
+        <fqname>@1.3::IVibrator/default</fqname>
     </hal>
     <hal format="hidl" override="true">
         <name>com.qualcomm.qti.dpm.api</name>
@@ -200,15 +228,20 @@
         <name>vendor.qti.data.factory</name>
         <transport>hwbinder</transport>
     </hal>
+    <hal format="hidl" override="true">
+        <name>vendor.qti.esepowermanager</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+    </hal>
     <hal format="hidl">
-        <name>vendor.qti.hardware.cacert</name>
+        <name>vendor.qti.hardware.audiohalext</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
-            <name>IService</name>
+            <name>IAudioHalExt</name>
             <instance>default</instance>
         </interface>
-        <fqname>@1.0::IService/default</fqname>
+        <fqname>@1.0::IAudioHalExt/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.capabilityconfigstore</name>
@@ -245,7 +278,7 @@
     <hal format="hidl" override="true">
         <name>vendor.qti.hardware.factory</name>
         <transport>hwbinder</transport>
-        <version>1.1</version>
+        <version>1.0</version>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.iop</name>
@@ -280,6 +313,21 @@
             <instance>default</instance>
         </interface>
         <fqname>@1.0::IQSEECom/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.qti.hardware.qteeconnector</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IAppConnector</name>
+            <instance>default</instance>
+        </interface>
+        <interface>
+            <name>IGPAppConnector</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.0::IAppConnector/default</fqname>
+        <fqname>@1.0::IGPAppConnector/default</fqname>
     </hal>
     <hal format="hidl" override="true">
         <name>vendor.qti.hardware.radio.am</name>
@@ -317,23 +365,20 @@
         <name>vendor.qti.hardware.radio.uim_remote_server</name>
         <transport>hwbinder</transport>
     </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.trustedui</name>
+    <hal format="hidl" override="true">
+        <name>vendor.qti.hardware.soter</name>
         <transport>hwbinder</transport>
-        <fqname>@1.1::ITrustedInput/default</fqname>
-        <fqname>@1.1::ITrustedInput/qtee-vm</fqname>
-        <fqname>@1.2::ITrustedUI/default</fqname>
-        <fqname>@1.2::ITrustedUI/qtee-vm</fqname>
+        <version>1.0</version>
     </hal>
     <hal format="hidl">
-        <name>vendor.qti.hardware.wifi.wifilearner</name>
+        <name>vendor.qti.hardware.tui_comm</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
-            <name>IWifiStats</name>
-            <instance>wifiStats</instance>
+            <name>ITuiComm</name>
+            <instance>default</instance>
         </interface>
-        <fqname>@1.0::IWifiStats/wifiStats</fqname>
+        <fqname>@1.0::ITuiComm/default</fqname>
     </hal>
     <hal format="hidl" override="true">
         <name>vendor.qti.ims.callinfo</name>
@@ -399,6 +444,26 @@
         <fqname>@1.0::ISehBluetoothAudioOffload/default</fqname>
     </hal>
     <hal format="hidl">
+        <name>vendor.samsung.hardware.bluetooth.a2dpsink</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISehBluetoothA2dpSinkProvidersFactory</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.0::ISehBluetoothA2dpSinkProvidersFactory/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung.hardware.bluetooth.audio</name>
+        <transport>hwbinder</transport>
+        <version>2.1</version>
+        <interface>
+            <name>ISehBluetoothAudioProvidersFactory</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@2.1::ISehBluetoothAudioProvidersFactory/default</fqname>
+    </hal>
+    <hal format="hidl">
         <name>vendor.samsung.hardware.gnss</name>
         <transport>hwbinder</transport>
         <version>2.0</version>
@@ -422,46 +487,6 @@
         </interface>
         <fqname>@2.0::ISehMiscPower/default</fqname>
     </hal>
-    <hal format="hidl">
-        <name>vendor.samsung.hardware.radio</name>
-        <transport>hwbinder</transport>
-        <version>2.2</version>
-        <interface>
-            <name>ISehRadio</name>
-            <instance>slot1</instance>
-            <instance>slot2</instance>
-        </interface>
-        <fqname>@2.2::ISehRadio/slot1</fqname>
-        <fqname>@2.2::ISehRadio/slot2</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.samsung.hardware.radio.bridge</name>
-        <transport>hwbinder</transport>
-        <version>2.0</version>
-        <interface>
-            <name>ISehBridge</name>
-            <instance>slot1</instance>
-            <instance>slot2</instance>
-        </interface>
-        <fqname>@2.0::ISehBridge/slot1</fqname>
-        <fqname>@2.0::ISehBridge/slot2</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.samsung.hardware.radio.channel</name>
-        <transport>hwbinder</transport>
-        <version>2.0</version>
-        <interface>
-            <name>ISehChannel</name>
-            <instance>epdgd</instance>
-            <instance>epdgd2</instance>
-            <instance>imsd</instance>
-            <instance>imsd2</instance>
-        </interface>
-        <fqname>@2.0::ISehChannel/epdgd</fqname>
-        <fqname>@2.0::ISehChannel/epdgd2</fqname>
-        <fqname>@2.0::ISehChannel/imsd</fqname>
-        <fqname>@2.0::ISehChannel/imsd2</fqname>
-    </hal>
     <hal format="hidl" override="true">
         <name>vendor.samsung.hardware.security.drk</name>
         <transport>hwbinder</transport>
@@ -471,6 +496,24 @@
             <instance>default</instance>
         </interface>
         <fqname>@2.0::ISehDrk/default</fqname>
+    </hal>
+    <hal format="aidl">
+        <name>vendor.samsung.hardware.security.fkeymaster</name>
+        <interface>
+            <name>ISehFkeymaster</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>ISehFkeymaster/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung.hardware.security.hdcp.keyprovisioning</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISehHdcpKeyProvisioning</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.0::ISehHdcpKeyProvisioning/default</fqname>
     </hal>
     <hal format="hidl" override="true">
         <name>vendor.samsung.hardware.security.skpm</name>
@@ -482,55 +525,22 @@
         </interface>
         <fqname>@1.0::ISehSkpm/default</fqname>
     </hal>
-    <hal format="hidl">
-        <name>vendor.samsung.hardware.security.widevine.keyprov</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ISehWidevineKeyProvisioning</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::ISehWidevineKeyProvisioning/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.samsung.hardware.security.wsm</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ISehWsm</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::ISehWsm/default</fqname>
-    </hal>
-    <hal format="hidl">
+    <hal format="aidl">
         <name>vendor.samsung.hardware.snap</name>
-        <transport>hwbinder</transport>
-        <version>1.2</version>
-        <interface>
-            <name>ISehSnap</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.2::ISehSnap/default</fqname>
+        <fqname>ISehSnap/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.samsung.hardware.tlc.blockchain</name>
+        <name>vendor.samsung.hardware.sysinput</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
+        <version>1.3</version>
         <interface>
-            <name>ISehBlockchain</name>
+            <name>ISehSysInputCallback</name>
+        </interface>
+        <interface>
+            <name>ISehSysInputDev</name>
             <instance>default</instance>
         </interface>
-        <fqname>@1.0::ISehBlockchain/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.samsung.hardware.tlc.payment</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ISehTlcPayment</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::ISehTlcPayment/default</fqname>
+        <fqname>@1.3::ISehSysInputDev/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.samsung.hardware.tlc.ucm</name>
@@ -541,6 +551,16 @@
             <instance>default</instance>
         </interface>
         <fqname>@2.0::ISehUcm/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung.hardware.vibrator</name>
+        <transport>hwbinder</transport>
+        <version>2.2</version>
+        <interface>
+            <name>ISehVibrator</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@2.2::ISehVibrator/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.samsung.hardware.wifi.supplicant</name>
@@ -555,5 +575,4 @@
     <sepolicy>
         <version>30.0</version>
     </sepolicy>
-    <kernel target-level="5"/>
 </manifest>
