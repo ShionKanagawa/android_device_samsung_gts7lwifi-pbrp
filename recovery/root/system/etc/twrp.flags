@@ -3,15 +3,24 @@
 /boot		emmc		/dev/block/bootdevice/by-name/boot
 /dtbo		emmc		/dev/block/bootdevice/by-name/dtbo		flags=backup=1;flashimg=1;display="Dtbo"
 /recovery	emmc		/dev/block/bootdevice/by-name/recovery		flags=backup=1
-/vendor_boot	emmc		/dev/block/bootdevice/by-name/vendor_boot	flags=backup=1;flashimg=1;display="Vendor Boot"
+# Logical Points
+system              /system      ext4        ro,barrier=1,discard                wait,logical,first_stage_mount
+system              /system      erofs       ro                                  wait,logical,first_stage_mount
+vendor              /vendor      ext4        ro,barrier=1,discard                wait,logical,first_stage_mount
+vendor              /vendor      erofs       ro                                  wait,logical,first_stage_mount
+product             /product     ext4        ro,barrier=1,discard                wait,logical,first_stage_mount
+product             /product     erofs       ro                                  wait,logical,first_stage_mount
+odm                 /odm         ext4        ro,barrier=1,discard                wait,logical,first_stage_mount
+odm                 /odm         erofs       ro                                  wait,logical,first_stage_mount
 
-/system_image	emmc		/dev/block/bootdevice/by-name/system		flags=backup=1;flashimg=1
-/odm_image	emmc		/dev/block/bootdevice/by-name/odm		flags=backup=1;flashimg=1;display="Odm"
-/product_image	emmc		/dev/block/bootdevice/by-name/product		flags=backup=1;flashimg=1;display="Product Image"
-/vendor_image	emmc		/dev/block/bootdevice/by-name/vendor		flags=backup=1;flashimg=1
+# Direct image flashing
+/system_image       emmc         /dev/block/bootdevice/by-name/system            flags=backup=1;flashimg=1
+/odm_image          emmc         /dev/block/bootdevice/by-name/odm               flags=backup=1;flashimg=1;display="ODM Image"
+/product_image      emmc         /dev/block/bootdevice/by-name/product           flags=backup=1;flashimg=1;display="Product Image"
+/vendor_image       emmc         /dev/block/bootdevice/by-name/vendor            flags=backup=1;flashimg=1
 
 /cache		ext4		/dev/block/bootdevice/by-name/cache
-/efs		ext4		/dev/block/bootdevice/by-name/efs		flags=backup=1;display="EFS"
+/mnt/vendor/efs		ext4		/dev/block/bootdevice/by-name/efs		flags=backup=1;display="EFS"
 /sec_efs	ext4		/dev/block/bootdevice/by-name/sec_efs		flags=backup=1;display="Sec EFS"
 
 /omr		ext4		/dev/block/bootdevice/by-name/omr		flags=wipeingui;display="OMR"
@@ -21,9 +30,13 @@
 /optics_image	emmc		/dev/block/bootdevice/by-name/optics		flags=backup=1;flashimg=1;display="Optics Image"
 /prism_image	emmc		/dev/block/bootdevice/by-name/prism		flags=backup=1;flashimg=1;display="Prism Image"
 
-/persist	ext4		/dev/block/bootdevice/by-name/persist		flags=fsflags=ro;display="Persist"
+/mnt/vendor/persist	ext4		/dev/block/bootdevice/by-name/persist		flags=fsflags=ro;display="Persist"
 /metadata	ext4		/dev/block/bootdevice/by-name/metadata		flags=display="Metadata"
 
+# Samsung ODE
+/keydata            ext4         /dev/block/bootdevice/by-name/keydata           flags=display="Keydata";wipeingui
+/keyrefuge          ext4         /dev/block/bootdevice/by-name/keyrefuge         flags=display="Keyrefuge";wipeingui
+
 # Removable partitions
-/external_sd	auto		/dev/block/mmcblk0p1	/dev/block/mmcblk1	flags=storage;wipeingui;removable
-/usb-otg	auto		/dev/block/sdg1		/dev/block/sdg		flags=storage;wipeingui;removable
+/external_sd        auto         /dev/block/mmcblk0p1                            flags=display="Micro SD card";storage;wipeingui;removable
+/usb-otg	        auto         /dev/block/sde1                                 flags=display="USB OTG";storage;wipeingui;removable

@@ -1,4 +1,4 @@
-on post-fs
+on property:hwservicemanager.ready=true && property:vendor.sys.listeners.registered=true
     start vendor.spdaemon
     start vendor.sec_nvm
 
