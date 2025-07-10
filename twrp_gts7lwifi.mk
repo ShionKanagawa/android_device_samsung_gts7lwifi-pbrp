@@ -18,7 +18,7 @@
 # $(call inherit-product, device/sample/products/backup_overlay.mk)
 
 # Release name
-PRODUCT_RELEASE_NAME := gts7xl
+PRODUCT_RELEASE_NAME := gts7lwifi
 PRODUCT_SHIPPING_API_LEVEL := 29
 
 # Inherit from common AOSP config
@@ -29,18 +29,18 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, vendor/twrp/config/common.mk)
 
 # Inherit device configuration
-$(call inherit-product, device/samsung/gts7xl/device.mk)
+$(call inherit-product, device/samsung/gts7lwifi/device.mk)
 
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
 
-PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/samsung/gts7xl/recovery/root,recovery/root)
+PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/samsung/gts7lwifi/recovery/root,recovery/root)
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_NAME := twrp_gts7xl
-PRODUCT_DEVICE := gts7xl
-PRODUCT_MODEL := SM-T976B
+PRODUCT_NAME := twrp_gts7lwifi
+PRODUCT_DEVICE := gts7lwifi
+PRODUCT_MODEL := SM-T870
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
 PRODUCT_GMS_CLIENTID_BASE := android-samsung

@@ -11,7 +11,7 @@
 # limitations under the License.
 #
 
-DEVICE_PATH := device/samsung/gts7xl
+DEVICE_PATH := device/samsung/gts7lwifi
 
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
@@ -70,7 +70,7 @@ BOARD_KERNEL_TAGS_OFFSET := 0x01e00000
 BOARD_RAMDISK_OFFSET := 0x02000000
 
 # Recovery
-TARGET_OTA_ASSERT_DEVICE := gts7xl
+TARGET_OTA_ASSERT_DEVICE := gts7lwifi
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 
@@ -118,6 +118,7 @@ PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 TW_THEME := landscape_hdpi
 RECOVERY_TOUCHSCREEN_SWAP_XY := true
 RECOVERY_TOUCHSCREEN_FLIP_Y := true
+TW_ROTATION := 90
 
 # TWRP
 TW_DEVICE_VERSION := inkypen
