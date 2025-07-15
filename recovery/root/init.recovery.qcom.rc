@@ -3,7 +3,15 @@ import /init.recovery.qcom_decrypt.rc
 on fs
     wait /dev/block/platform/${ro.boot.boot_devices}
     symlink /dev/block/platform/${ro.boot.boot_devices} /dev/block/bootdevice
-
+    mkdir /mnt/vendor/spunvm
+    mount vfat /dev/block/bootdevice/by-name/spunvm /mnt/vendor/spunvm ro
+    mkdir /vendor/firmware_mnt
+    mount vfat /dev/block/bootdevice/by-name/apnhlos /vendor/firmware_mnt ro
+    mkdir /mnt/vendor/efs
+    mount ext4 /dev/block/bootdevice/by-name/efs /mnt/vendor/efs rw
+    mkdir /mnt/vendor/persist
+    mount ext4 /dev/block/bootdevice/by-name/persist /mnt/vendor/persist rw
+    mount ext4 /dev/block/bootdevice/by-name/sec_efs /efs rw
     mount_all /system/etc/recovery.fstab
 
 on post-fs
